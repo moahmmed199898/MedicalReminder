@@ -33,15 +33,10 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _initialized = false;
   bool _error = false;
   String _errorType;
+  String fireStoreStatus;
   void initializeFlutterFire() async {
     try {
       await Firebase.initializeApp();
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      firestore.collection("users").add({
-        'full_name': "fullName", // John Doe
-        'company': "company", // Stokes and Sons
-        'age': "age" // 42
-      });
       setState(() {
         _initialized = true;
       });
@@ -60,6 +55,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> addUser() {
+      // Call the user's CollectionReference to add a new user
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      CollectionReference users = firestore.collection("users");
+      return users
+          .add({
+        'full_name': "fullName", // John Doe
+        'company': "company", // Stokes and Sons
+        'age': "age" // 42
+      })
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error"));
+    }
+
     if(_error) {
       return Scaffold(
         body: Center(
@@ -82,8 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       body: Center(
-          child: Text(
-            'Good to go',
+          child: FlatButton(
+            onPressed: addUser,
+            child: Text(
+              "Add User",
+            )
           )
       ),
     );
