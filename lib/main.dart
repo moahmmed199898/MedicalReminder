@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -69,6 +72,25 @@ class _MyHomePageState extends State<MyHomePage> {
           .catchError((error) => print("Failed to add user: $error"));
     }
 
+
+    Future<UserCredential> signInWithGoogle() async {
+      FirebaseAuth.instance.authStateChanges().listen((User user) {
+        if(user == null) {
+          print("user is currently signed out!");
+        } else {
+          print("user is signed in!");
+        }
+      });
+
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken
+      );
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    }
+
     if(_error) {
       return Scaffold(
         body: Center(
@@ -92,9 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Center(
           child: FlatButton(
-            onPressed: addUser,
+            onPressed: signInWithGoogle,
             child: Text(
-              "Add User",
+              "Signin",
             )
           )
       ),
