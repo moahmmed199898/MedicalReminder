@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'XD_HomeElder.dart';
+import 'package:medical_reminder/Pages/Current_Health_Page.dart';
+import 'Pages/Home_Page.dart';
 
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Splash_Screen(),
-    );
-  }
-}
-
+void main() => runApp(MaterialApp(
+      initialRoute: "/CurrentHealth",
+      routes: {
+        "/": (context) => HomePage(),
+        "/CurrentHealth" : (context) => CurrentHealthPage()
+      },
+    ));
