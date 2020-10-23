@@ -13,7 +13,7 @@ class Medications {
     this.medicationName,
     this.medColor,
     this.medNickName,
-    this.interval,
+    this.medInterval,
     this.amountLeft,
     this.dose,
     this.medType,
@@ -22,7 +22,7 @@ class Medications {
   String medicationName;
   MedColor medColor;
   String medNickName;
-  Interval interval;
+  List<MedInterval> medInterval;
   int amountLeft;
   int dose;
   String medType;
@@ -31,7 +31,7 @@ class Medications {
     medicationName: json["medicationName"],
     medColor: MedColor.fromJson(json["medColor"]),
     medNickName: json["medNickName"],
-    interval: Interval.fromJson(json["interval"]),
+    medInterval: List<MedInterval>.from(json["medInterval"].map((x) => MedInterval.fromJson(x))),
     amountLeft: json["amountLeft"],
     dose: json["dose"],
     medType: json["medType"],
@@ -41,30 +41,10 @@ class Medications {
     "medicationName": medicationName,
     "medColor": medColor.toJson(),
     "medNickName": medNickName,
-    "interval": interval.toJson(),
+    "medInterval": List<dynamic>.from(medInterval.map((x) => x.toJson())),
     "amountLeft": amountLeft,
     "dose": dose,
     "medType": medType,
-  };
-}
-
-class Interval {
-  Interval({
-    this.week,
-    this.time,
-  });
-
-  List<String> week;
-  List<String> time;
-
-  factory Interval.fromJson(Map<String, dynamic> json) => Interval(
-    week: List<String>.from(json["week"].map((x) => x)),
-    time: List<String>.from(json["time"].map((x) => x)),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "week": List<dynamic>.from(week.map((x) => x)),
-    "time": List<dynamic>.from(time.map((x) => x)),
   };
 }
 
@@ -89,5 +69,25 @@ class MedColor {
     "r": r,
     "g": g,
     "b": b,
+  };
+}
+
+class MedInterval {
+  MedInterval({
+    this.day,
+    this.time,
+  });
+
+  int day;
+  List<String> time;
+
+  factory MedInterval.fromJson(Map<String, dynamic> json) => MedInterval(
+    day: json["Day"],
+    time: List<String>.from(json["time"].map((x) => x)),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "Day": day,
+    "time": List<dynamic>.from(time.map((x) => x)),
   };
 }

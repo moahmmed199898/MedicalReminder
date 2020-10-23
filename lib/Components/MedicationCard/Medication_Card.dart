@@ -7,6 +7,9 @@ class MedicationCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
 
+  final double _medNameFontSize = 35;
+  final double _subTextFontSize = 18;
+
   MedicationCard(this.medName, this.subText, this.icon, this.iconColor);
 
   @override
@@ -28,12 +31,12 @@ class MedicationCard extends StatelessWidget {
                 Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      margin: EdgeInsets.only(top: 10 ),
                       child: Text(
                         medName,
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
-                          fontSize: 35,
+                          fontSize: _medNameFontSize,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -42,7 +45,7 @@ class MedicationCard extends StatelessWidget {
                       subText,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
-                        fontSize: 15,
+                        fontSize: _subTextFontSize,
                         fontWeight: FontWeight.bold,
                       ),
                     )
