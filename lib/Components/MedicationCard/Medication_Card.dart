@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medical_reminder/Constants.dart';
 
 class MedicationCard extends StatelessWidget {
   final String medName;
@@ -7,16 +8,36 @@ class MedicationCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
 
+  //font sizes
   final double _medNameFontSize = 35;
   final double _subTextFontSize = 18;
 
-  MedicationCard(this.medName, this.subText, this.icon, this.iconColor);
+  //background colors
+  //dark background
+  final Color _darkBackground = Constants.offColor;
+  //light background
+  final Color _lightBackground = Constants.mainColor;
+
+  Color _backgroundColor;
+
+
+  MedicationCard(this.medName, this.subText, this.icon, this.iconColor) {
+    //calculate the mean of the colors
+    double avgMean = (iconColor.blue + iconColor.red + iconColor.green)/3;
+    if(avgMean > 255/2) {
+      //light icon
+      _backgroundColor = _darkBackground;
+    } else {
+      //dark icon
+      _backgroundColor = _lightBackground;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
         child: Container(
-      color: Color.fromRGBO(45, 45, 45, 1),
+      color: _backgroundColor,
       height: 100,
             child: Row(
               children: [

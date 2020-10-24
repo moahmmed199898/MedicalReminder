@@ -36,7 +36,7 @@ class MedicationCardMaker extends StatelessWidget {
       hour = medTimes[1];
     }
 
-    return "Your next medication is on \n${DateTimeTranslator.intToDay(medTimes[0])} at ${hour}:${medTimes[2]} ${amOrPM}";
+    return "Your next medication is on \n${DateTimeTranslator.intToDay(medTimes[0])} at $hour:${medTimes[2]} $amOrPM";
   }
 
 

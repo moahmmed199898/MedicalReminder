@@ -10,12 +10,12 @@ class MedicationCardManager extends StatefulWidget {
 }
 
 class _MedicationCardManagerState extends State<MedicationCardManager> {
-
+  final String data = '[ { "medicationName": "hello", "medColor": { "r": 0, "g": 0, "b": 0 }, "medNickName": "NiceName", "medInterval": [ { "Day": 1, "time": ["2:30", "14:40"] } ], "amountLeft": 4, "dose": 500, "medType": "T" }, { "medicationName": "hello", "medColor": { "r": 0, "g": 0, "b": 0 }, "medNickName": "NiceName", "medInterval": [ { "Day": 6, "time": ["16:30", "14:40"] } ], "amountLeft": 4, "dose": 500, "medType": "T" } ]';
+  List<Medications> decoded;
 
   @override
   Widget build(BuildContext context) {
-    var data = '[ { "medicationName": "hello", "medColor": { "r": 0, "g": 0, "b": 0 }, "medNickName": "NiceName", "medInterval": [ { "Day": 1, "time": ["2:30", "14:40"] } ], "amountLeft": 4, "dose": 500, "medType": "T" }, { "medicationName": "hello", "medColor": { "r": 0, "g": 0, "b": 0 }, "medNickName": "NiceName", "medInterval": [ { "Day": 6, "time": ["16:30", "14:40"] } ], "amountLeft": 4, "dose": 500, "medType": "T" } ]';
-    List<Medications> decoded = medicationsFromJson(data);
+    decoded = medicationsFromJson(data);
     return Column(
       children: decoded.map((e) => MedicationCardMaker(e)).toList(),
     );
