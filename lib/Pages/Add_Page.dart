@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'package:medical_reminder/Components/Background_Animation.dart';
 
 
 import 'package:medical_reminder/Components/Color_Picker.dart';
-import 'package:medical_reminder/Components/Days_Picker.dart';
+import 'file:///C:/Users/aspas/StudioProjects/MedicalReminder/lib/Components/DaysPicker/Days_Picker.dart';
 import 'package:medical_reminder/Components/Input_Box.dart';
+import 'package:medical_reminder/Components/Tablet_Pill_Picker.dart';
 
 class AddPage extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _AddPage extends State<AddPage> {
     });
   }
 
-  void _radioOnChangeHandler(String string) {
+  void _medTypeOnChangeHandler(String string) {
     setState(() {
       _medType = string;
     });
@@ -51,69 +52,28 @@ class _AddPage extends State<AddPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(41, 135, 8, 1),
+          backgroundColor: Color.fromRGBO(58, 151, 187, 1),
         ),
-        body: Center(
-          child: SingleChildScrollView(
+        body: Stack(
+            children: [
+              BackgroundAnimation(),
+          SingleChildScrollView(
 
-              child: Container(
-                  margin: EdgeInsets.all(20),
-                  child: Column(
-                      children: [
-                        InputBox("What is the Medication Name", (String string) => print(string)),
-                        InputBox("What is the Medication NickName", (String string) => print(string)),
-                        Row(
-                          children: [
-                            Container(
-                              width: 150,
-                              child: ListTile(
-                                title: Text("Tablet"),
-                                leading: Radio(
-                                  value: "Tablet",
-                                  groupValue: _medType,
-                                  onChanged: _radioOnChangeHandler,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 200,
-                              child: ListTile(
-                                title: Text("Pill"),
-                                leading: Radio(
-                                  value: "Pill",
-                                  groupValue: _medType,
-                                  onChanged: _radioOnChangeHandler,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        ColorPicker("What color is your $_medType", _colorPickerOnChangeHandler),
-                        Text("What Days Do You Take The Medication?", style: TextStyle(color: Color.fromRGBO(41, 135, 8, 1), fontWeight: FontWeight.bold, fontSize: 20)),
-                        DaysPicker(_onDayCheckedHandler),
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              showPicker(
-                                context: context,
-                                value: _time,
-                                onChange: _onTimeChangedHandler,
-                              ),
-                            );
-                          },
-                          child: Text(
-                            "Open time picker",
-                            style: TextStyle(color: Colors.cyan),
-                          ),
-                        ),
-
-                      ],
-
-
-
+              child:Container(
+                      margin: EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          InputBox("What is the Medication Name", (String string) => print(string)),
+                          InputBox("What is the Medication NickName", (String string) => print(string)),
+                          TabletPillPicker(_medTypeOnChangeHandler),
+                          ColorPicker("What color is your $_medType", _colorPickerOnChangeHandler),
+                          Text("What Days Do You Take The Medication?", style: TextStyle(color: Color.fromRGBO(41, 135, 8, 1), fontWeight: FontWeight.bold, fontSize: 20)),
+                          DaysPicker(_onDayCheckedHandler),
+                        ],
+                      )
                   )
-              )
-          ),
-        ));
+              )],
+          )
+        );
   }
 }

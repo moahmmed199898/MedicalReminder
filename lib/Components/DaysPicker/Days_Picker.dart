@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'DaysPicker/Vertical_Checkbox_Tile.dart';
+import 'Vertical_Checkbox_Tile.dart';
 
 class DaysPicker extends StatefulWidget{
   final void Function(List<String>) callback;

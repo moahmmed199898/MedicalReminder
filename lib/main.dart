@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_reminder/Components/Background_Animation.dart';
 import 'package:medical_reminder/Pages/Add_Page.dart';
 import 'package:medical_reminder/Pages/Auth_page.dart';
 
@@ -12,6 +13,7 @@ void main() => runApp(MaterialApp(
         "/": (context) => HomePage(),
         "/CurrentHealth" : (context) => CurrentHealthPage(),
         "/auth": (context) => AuthPage(),
-        "/add": (context) => AddPage()
+        "/add": (context) => AddPage(),
+        "/test": (context) => BackgroundAnimation()
       },
     ));

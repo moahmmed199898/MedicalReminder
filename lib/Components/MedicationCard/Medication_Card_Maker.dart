@@ -17,7 +17,6 @@ class MedicationCardMaker extends StatelessWidget {
 
   MedicationCardMaker(this.medications) {
     medName = medications.medNickName;
-    //TODO: implement when the next med is due
     subText = _timeStringGenerator(medications.medInterval);
     if(medications.medType == "T") icon = FontAwesomeIcons.tablets; else icon = FontAwesomeIcons.capsules;
     iconColor = Color.fromRGBO(medications.medColor.r, medications.medColor.g, medications.medColor.b, 1);
