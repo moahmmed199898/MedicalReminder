@@ -11,7 +11,7 @@ class FirebaseInitializer {
   static Future<int> initFlutterFire() async {
     try{
       await Firebase.initializeApp();
-      AppState.firebaseInitialized = true;
+      AppState.isFirebaseInitialized = true;
       return 1;
     } catch(e) {
       print("Firebase Init Error");

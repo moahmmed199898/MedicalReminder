@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_reminder/Constants.dart';
 
 class InputBox extends StatelessWidget {
   final String question;
@@ -10,12 +11,21 @@ class InputBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-        decoration: InputDecoration(
-        hintText: question,
-        border: OutlineInputBorder(),
-    ),
-      onChanged: callback
+    return Container(
+      color: Constants.mainColor.withOpacity(0.6),
+      margin: EdgeInsets.only(bottom: 10, top: 10),
+      child: TextFormField(
+        style: TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic
+        ),
+          decoration: InputDecoration(
+            hintText: question,
+            border: OutlineInputBorder(),
+          ),
+          onChanged: callback
+      ),
     );
   }
 
