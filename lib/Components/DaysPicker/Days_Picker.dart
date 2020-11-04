@@ -24,10 +24,12 @@ class _DaysPicker extends State<DaysPicker> {
   }
   @override
   Widget build(BuildContext context) {
-    return Flex(
+    return Container(
+      margin: EdgeInsets.only(bottom: 20, top: 5),
+      child:Flex(
           direction: Axis.horizontal,
           children:  weekDays.map((e) => VerticalCheckBoxTile(e, (value)=>onChangeHandler(e,value))).toList()
-      );
+      ));
 
   }
 

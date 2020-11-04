@@ -4,6 +4,10 @@ import 'package:rive/rive.dart';
 import 'dart:async';
 
 class BackgroundAnimation extends StatefulWidget{
+  final String animationPath;
+
+  BackgroundAnimation(this.animationPath);
+
   @override
   _BackgroundAnimation createState() => _BackgroundAnimation();
 }
@@ -20,10 +24,6 @@ class _BackgroundAnimation extends State<BackgroundAnimation> {
 
   void _togglePlay() {
     setState(() => _controller.isActive = !_controller.isActive);
-    setState(() {
-      print(_riveArtboard.advance(100));
-    });
-
   }
 
   /// We track if the animation is playing by whether or not the controller is
@@ -38,7 +38,7 @@ class _BackgroundAnimation extends State<BackgroundAnimation> {
 
     // Load the animation file from the bundle, note that you could also
     // download this. The RiveFile just expects a list of bytes.
-    rootBundle.load('assets/sky_animation.riv').then(
+    rootBundle.load(widget.animationPath).then(
           (data) async {
         var file = RiveFile();
 
@@ -53,18 +53,20 @@ class _BackgroundAnimation extends State<BackgroundAnimation> {
           artboard.addController(
             _controller = SimpleAnimation('idle'),
           );
-          // _controller.isActive = false;
+          _controller.isActive = false;
+          setEveningTime();
           setState(() => _riveArtboard = artboard);
         }
       },
     );
+
   }
 
   @override
   Widget build(BuildContext context) {
     return _riveArtboard == null
-            ? const SizedBox()
-            : Rive(artboard: _riveArtboard, fit: BoxFit.fill,);
+        ? const SizedBox()
+        : Rive(artboard: _riveArtboard, fit: BoxFit.fill,);
   }
 
 }

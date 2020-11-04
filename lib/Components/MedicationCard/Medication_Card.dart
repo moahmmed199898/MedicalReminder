@@ -7,6 +7,7 @@ class MedicationCard extends StatelessWidget {
   final String subText;
   final IconData icon;
   final Color iconColor;
+  final double transparency;
 
   //font sizes
   final double _medNameFontSize = 35;
@@ -21,21 +22,22 @@ class MedicationCard extends StatelessWidget {
   Color _backgroundColor;
 
 
-  MedicationCard(this.medName, this.subText, this.icon, this.iconColor) {
+  MedicationCard(this.medName, this.subText, this.icon, this.iconColor, [this.transparency=1]) {
     //calculate the mean of the colors
     double avgMean = (iconColor.blue + iconColor.red + iconColor.green)/3;
     if(avgMean > 255/2) {
       //light icon
-      _backgroundColor = _darkBackground;
+      _backgroundColor = _darkBackground.withOpacity(transparency);
     } else {
       //dark icon
-      _backgroundColor = _lightBackground;
+      _backgroundColor = _lightBackground.withOpacity(transparency);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: _backgroundColor,
         child: Container(
       color: _backgroundColor,
       height: 100,

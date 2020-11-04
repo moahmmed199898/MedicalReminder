@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<Medications> medicationsFromJson(String str) => List<Medications>.from(json.decode(str).map((x) => Medications.fromJson(x)));
+List<Medication> medicationsFromJson(String str) => List<Medication>.from(json.decode(str).map((x) => Medication.fromJson(x)));
 
-String medicationsToJson(List<Medications> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String medicationsToJson(List<Medication> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Medications {
-  Medications({
+class Medication {
+  Medication({
     this.medicationName,
     this.medColor,
     this.medNickName,
@@ -27,7 +27,7 @@ class Medications {
   int dose;
   String medType;
 
-  factory Medications.fromJson(Map<String, dynamic> json) => Medications(
+  factory Medication.fromJson(Map<String, dynamic> json) => Medication(
     medicationName: json["medicationName"],
     medColor: MedColor.fromJson(json["medColor"]),
     medNickName: json["medNickName"],

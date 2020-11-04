@@ -13,7 +13,7 @@ class MedicationCardMaker extends StatelessWidget {
   String subText;
   IconData icon;
   Color iconColor;
-  Medications medications;
+  Medication medications;
 
   MedicationCardMaker(this.medications) {
     medName = medications.medNickName;
