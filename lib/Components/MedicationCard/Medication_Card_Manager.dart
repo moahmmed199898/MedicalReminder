@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_reminder/Services/Firebase/Database.dart';
+import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
 import 'package:medical_reminder/Types/Firebase_Data.dart';
 
 import '../../Types/Firebase_Data.dart';
@@ -11,7 +12,6 @@ class MedicationCardManager extends StatefulWidget {
 }
 
 class _MedicationCardManagerState extends State<MedicationCardManager> {
-  // final String data = '[ { "medicationName": "hello", "medColor": { "r": 0, "g": 0, "b": 0 }, "medNickName": "NiceName", "medInterval": [ { "Day": 1, "time": ["2:30", "14:40"] } ], "amountLeft": 4, "dose": 500, "medType": "T" }, { "medicationName": "hello", "medColor": { "r": 0, "g": 0, "b": 0 }, "medNickName": "NiceName", "medInterval": [ { "Day": 6, "time": ["16:30", "14:40"] } ], "amountLeft": 4, "dose": 500, "medType": "T" } ]';
   List<Medication> medications;
 
   @override
@@ -20,7 +20,8 @@ class _MedicationCardManagerState extends State<MedicationCardManager> {
     getData();
   }
   void getData() async {
-    List<Medication> data = await Database(context).getCurrentMedication();
+    await FirebaseAuthorizer(context).checkIfUserIsLoggedIN();
+    List<Medication> data = await Database().getCurrentMedication();
     setState(() {
       medications = data;
     });
@@ -28,7 +29,11 @@ class _MedicationCardManagerState extends State<MedicationCardManager> {
 
   @override
   Widget build(BuildContext context) {
-
+    if(medications == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return Column(
       children: medications.map((e) => MedicationCardMaker(e)).toList(),
     );

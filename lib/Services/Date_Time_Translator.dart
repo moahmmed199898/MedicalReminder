@@ -24,4 +24,16 @@ class DateTimeTranslator {
 
     }
   }
+  static int shortDayToInt(String dayName) {
+    switch(dayName) {
+      case "M": return 1;
+      case "T": return 2;
+      case "W": return 3;
+      case "TR": return 4;
+      case "F": return 5;
+      case "St": return 6;
+      case "Sn": return 7;
+
+    }
+  }
 }

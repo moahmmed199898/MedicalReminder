@@ -11,6 +11,7 @@ import 'package:medical_reminder/Components/Input_Box.dart';
 import 'package:medical_reminder/Components/MedicationCard/Medication_Card.dart';
 import 'package:medical_reminder/Components/Tablet_Pill_Picker.dart';
 import 'package:medical_reminder/Services/Firebase/Database.dart';
+import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
 import 'package:medical_reminder/Types/BackgroundSettingEnum.dart';
 import 'package:medical_reminder/Services/Drugs_API.dart';
 
@@ -72,10 +73,10 @@ class _AddPage extends State<AddPage> {
     });
   }
 
-  void onSubmitHandler() {
-    Database database = Database(context);
-    // database.addMedication(_medicationName, _medNickName, _medColor, _medType, _medDays, _time).then((value) => print("added")).catchError((e)=> print(e.toString()));
-    database.getCurrentMedication();
+  void onSubmitHandler() async {
+    await FirebaseAuthorizer(context).checkIfUserIsLoggedIN();
+    Database database = Database();
+    await database.addMedication(_medicationName, _medNickName, _medColor, _medType, _medDays, _time).then((value) => print("added")).catchError((e)=> print(e.toString()));
   }
 
   @override
@@ -91,7 +92,7 @@ class _AddPage extends State<AddPage> {
         ),
         body: Stack(
             children: [
-              BackgroundSettingSetter(_currentBackground),
+              // BackgroundSettingSetter(_currentBackground),
           SingleChildScrollView(
               child:Container(
                       margin: EdgeInsets.only(top: 20, right: 10, left: 10, bottom: 20),
@@ -107,7 +108,6 @@ class _AddPage extends State<AddPage> {
                           Text("What Time Do You Take The Medication?", style: TextStyle(color: _medColor, fontWeight: FontWeight.bold, fontSize: 20)),
                           FlatButton(onPressed:onClickShowTimeHandler,color: _medColor, child: Text("Click me to select time")),
                           FlatButton(onPressed: onSubmitHandler, color: _medColor, child: Text("Submit")),
-                          FlatButton(onPressed: ()=>DrugsAPI().getDrugNameSuggestions("ibuprofen"), child: Text("Hello"))
                         ],
                       )
                   )

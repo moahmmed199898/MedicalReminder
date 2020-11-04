@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 
+
 class HomeButton extends StatelessWidget {
   final String text;
   final Color color;
   final IconData icon;
+  final void Function() onClickHandler;
 
-  HomeButton(this.text, this.color, this.icon);
+  HomeButton(this.text, this.color, this.icon, this.onClickHandler);
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +23,7 @@ class HomeButton extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(40)),
             ),
             child: InkWell(
-              onTap: (){
-                print("Card tapped");
-              },
+              onTap: onClickHandler,
               child: Container(
                 width: 130,
                 height: 130,

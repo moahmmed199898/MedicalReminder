@@ -1,12 +1,12 @@
 // To parse this JSON data, do
 //
-//     final medications = medicationsFromJson(jsonString);
+//     final medication = medicationFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Medication> medicationsFromJson(String str) => List<Medication>.from(json.decode(str).map((x) => Medication.fromJson(x)));
+List<Medication> medicationFromJson(String str) => List<Medication>.from(json.decode(str).map((x) => Medication.fromJson(x)));
 
-String medicationsToJson(List<Medication> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String medicationToJson(List<Medication> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Medication {
   Medication({
@@ -82,12 +82,12 @@ class MedInterval {
   List<String> time;
 
   factory MedInterval.fromJson(Map<String, dynamic> json) => MedInterval(
-    day: json["Day"],
+    day: json["day"],
     time: List<String>.from(json["time"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "Day": day,
+    "day": day,
     "time": List<dynamic>.from(time.map((x) => x)),
   };
 }

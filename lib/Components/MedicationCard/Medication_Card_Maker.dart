@@ -40,6 +40,10 @@ class MedicationCardMaker extends StatelessWidget {
 
 
   List<int> _findTheClosestMedication(List<MedInterval> timestemps) {
+
+
+
+
     //find the closest day
     timestemps.sort((a, b) => a.day.compareTo(b.day));
     MedInterval closestMedication = timestemps[0];
