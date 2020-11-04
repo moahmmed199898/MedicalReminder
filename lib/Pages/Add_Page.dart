@@ -3,9 +3,10 @@ import 'package:medical_reminder/Components/Background_Animation.dart';
 
 
 import 'package:medical_reminder/Components/Color_Picker.dart';
-import 'file:///C:/Users/aspas/StudioProjects/MedicalReminder/lib/Components/DaysPicker/Days_Picker.dart';
+import 'package:medical_reminder/Components/DaysPicker/Days_Picker.dart';
 import 'package:medical_reminder/Components/Input_Box.dart';
 import 'package:medical_reminder/Components/Tablet_Pill_Picker.dart';
+import 'package:medical_reminder/Services/Drugs_API.dart';
 
 class AddPage extends StatefulWidget {
   @override
@@ -56,7 +57,7 @@ class _AddPage extends State<AddPage> {
         ),
         body: Stack(
             children: [
-              BackgroundAnimation(),
+              // BackgroundAnimation(),
           SingleChildScrollView(
 
               child:Container(
@@ -69,6 +70,7 @@ class _AddPage extends State<AddPage> {
                           ColorPicker("What color is your $_medType", _colorPickerOnChangeHandler),
                           Text("What Days Do You Take The Medication?", style: TextStyle(color: Color.fromRGBO(41, 135, 8, 1), fontWeight: FontWeight.bold, fontSize: 20)),
                           DaysPicker(_onDayCheckedHandler),
+                          FlatButton(onPressed: ()=>DrugsAPI().getDrugNameSuggestions("ibuprofen"), child: Text("Hello"))
                         ],
                       )
                   )
