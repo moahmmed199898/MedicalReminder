@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medical_reminder/Components/MedicationCard/Medication_Card.dart';
 import 'package:intl/intl.dart';
 import 'package:medical_reminder/Services/Date_Time_Translator.dart';
+import 'package:medical_reminder/Types/DayNTime.dart';
 
 import '../../Types/Firebase_Data.dart';
 import 'Medication_Card.dart';
@@ -17,59 +18,81 @@ class MedicationCardMaker extends StatelessWidget {
 
   MedicationCardMaker(this.medications) {
     medName = medications.medNickName;
-    subText = _timeStringGenerator(medications.medInterval);
+    subText = _timeStringGenerator(medications);
     if(medications.medType == "T") icon = FontAwesomeIcons.tablets; else icon = FontAwesomeIcons.capsules;
     iconColor = Color.fromRGBO(medications.medColor.r, medications.medColor.g, medications.medColor.b, 1);
 
   }
 
-  String _timeStringGenerator(List<MedInterval> timestemps) {
-    List<int> medTimes = _findTheClosestMedication(timestemps);
+  String _timeStringGenerator(Medication medication) {
+    DayNTime medTimes = _findTheClosestDose(medication);
     String amOrPM;
     int hour;
-    if(medTimes[1]>12) {
+    if(medTimes.hour>12) {
       amOrPM = "PM";
-      hour = medTimes[1]-12;
+      hour = medTimes.hour-12;
     } else {
       amOrPM = "AM";
-      hour = medTimes[1];
+      hour = medTimes.hour;
     }
 
-    return "Your next medication is on \n${DateTimeTranslator.intToDay(medTimes[0])} at $hour:${medTimes[2]} $amOrPM";
+    return "Your next medication is on \n${DateTimeTranslator.intToDay(medTimes.day)} at $hour:${medTimes.minutes} $amOrPM";
   }
 
 
-  List<int> _findTheClosestMedication(List<MedInterval> timestemps) {
+  DayNTime _findTheClosestDose(Medication medication) {
+    List<DayNTime> dayNTimes = _convertTimesToDayNTimeObjectList(medications.times);
+    List<DayNTime> upComingDays = _findUpComingDays(dayNTimes);
+    DayNTime closestDose = _findClosestTime(upComingDays);
+    return closestDose;
+  }
 
-
-
-
-    //find the closest day
-    timestemps.sort((a, b) => a.day.compareTo(b.day));
-    MedInterval closestMedication = timestemps[0];
-    //find the closest time
-    List<Duration> medicationTimestemps = List<Duration>();
-    for(String medicationTimestamp in closestMedication.time) {
-      List<String> splittedTime = medicationTimestamp.split(":");
-      Duration duration = Duration(hours: int.parse(splittedTime[0]),  minutes: int.parse(splittedTime[1]));
-      medicationTimestemps.add(duration);
+  DayNTime _findClosestTime(List<DayNTime> dayNTimes) {
+    //sort by hour
+    dayNTimes.sort((a,b)=>a.hour.compareTo(b.hour));
+    //check if any others has the same hour
+    List<DayNTime> sameHourDayNTimes = List<DayNTime>();
+    int lowestHour = dayNTimes[0].hour;
+    for(var dayNTime in dayNTimes) {
+      if(dayNTime.hour == lowestHour) {
+        sameHourDayNTimes.add(dayNTime);
+      }
     }
-    medicationTimestemps.sort();
-    DateTime dateTimeforMedication = generateNewDayTime().add(medicationTimestemps[0]);
+    sameHourDayNTimes.sort((a,b) => a.minutes.compareTo(b.minutes));
+    return sameHourDayNTimes[0];
 
+  }
 
+  List<DayNTime> _findUpComingDays(List<DayNTime> dayNTimes) {
+    List<DayNTime> upComingDays = List<DayNTime>();
+    for(var dayNTime in dayNTimes) {
+      DateTime now = DateTime.now();
+      if(dayNTime.day>=now.day) {
+        upComingDays.add(dayNTime);
+      }
+    }
+    return upComingDays;
+  }
 
-    return [closestMedication.day, dateTimeforMedication.hour, dateTimeforMedication.minute];
+  List<DayNTime> _convertTimesToDayNTimeObjectList(List<String> times) {
+    List<DayNTime> dayNTimes = List<DayNTime>();
+    for(var time in times) {
+      dayNTimes.add(_convertTimeToDayNTimeObject(time));
+    }
+    return dayNTimes;
+  }
+
+  DayNTime _convertTimeToDayNTimeObject(String time) {
+    DayNTime dayNTime = DayNTime();
+    List<String> splitedDay = time.split(" ");
+    List<String> splitedTime = splitedDay[1].split(":");
+    dayNTime.day = int.parse(splitedDay[0]);
+    dayNTime.hour = int.parse(splitedTime[0]);
+    dayNTime.minutes = int.parse(splitedTime[1]);
+    return dayNTime;
   }
 
 
-
-  DateTime generateNewDayTime() {
-    DateTime currentDateTime = DateTime.now();
-    String currentDateString = currentDateTime.toString().split(" ")[0];
-    DateTime currentDate = DateTime.parse(currentDateString);
-    return currentDate;
-  }
 
 
 
