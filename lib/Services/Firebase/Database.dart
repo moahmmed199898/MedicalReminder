@@ -30,18 +30,11 @@ class Database {
         "b": medColor.blue
       },
       "medNickName": medNickName,
-      "medInterval": [
-        {
-          "day": DateTimeTranslator.shortDayToInt(medDays[0]),
-          "time": [
-            "${medTime.hour}:${medTime.minute}"
-          ]
-      }
-      ],
       "amountLeft": 4,
       "dose": 500,
       "medType": medType == "Tablet" ? "T" : "P",
-      "userID": FirebaseAuth.instance.currentUser.uid
+      "userID": FirebaseAuth.instance.currentUser.uid,
+      "times": medDays.map((day) => "${DateTimeTranslator.shortDayToInt(day)} ${medTime.hour}:${medTime.minute}").toList(),
     }));
   }
 

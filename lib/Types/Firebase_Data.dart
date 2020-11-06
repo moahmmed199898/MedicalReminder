@@ -13,38 +13,50 @@ class Medication {
     this.medicationName,
     this.medColor,
     this.medNickName,
-    this.medInterval,
     this.amountLeft,
     this.dose,
     this.medType,
+    this.userId,
+    this.times,
+    this.interval,
+    this.intervalMonthDay,
   });
 
   String medicationName;
   MedColor medColor;
   String medNickName;
-  List<MedInterval> medInterval;
   int amountLeft;
   int dose;
   String medType;
+  String userId;
+  List<String> times;
+  String interval;
+  int intervalMonthDay;
 
   factory Medication.fromJson(Map<String, dynamic> json) => Medication(
     medicationName: json["medicationName"],
     medColor: MedColor.fromJson(json["medColor"]),
     medNickName: json["medNickName"],
-    medInterval: List<MedInterval>.from(json["medInterval"].map((x) => MedInterval.fromJson(x))),
     amountLeft: json["amountLeft"],
     dose: json["dose"],
     medType: json["medType"],
+    userId: json["userID"],
+    times: List<String>.from(json["times"].map((x) => x)),
+    interval: json["interval"],
+    intervalMonthDay: json["intervalMonthDay"],
   );
 
   Map<String, dynamic> toJson() => {
     "medicationName": medicationName,
     "medColor": medColor.toJson(),
     "medNickName": medNickName,
-    "medInterval": List<dynamic>.from(medInterval.map((x) => x.toJson())),
     "amountLeft": amountLeft,
     "dose": dose,
     "medType": medType,
+    "userID": userId,
+    "times": List<dynamic>.from(times.map((x) => x)),
+    "interval": interval,
+    "intervalMonthDay": intervalMonthDay,
   };
 }
 
@@ -69,25 +81,5 @@ class MedColor {
     "r": r,
     "g": g,
     "b": b,
-  };
-}
-
-class MedInterval {
-  MedInterval({
-    this.day,
-    this.time,
-  });
-
-  int day;
-  List<String> time;
-
-  factory MedInterval.fromJson(Map<String, dynamic> json) => MedInterval(
-    day: json["day"],
-    time: List<String>.from(json["time"].map((x) => x)),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "day": day,
-    "time": List<dynamic>.from(time.map((x) => x)),
   };
 }
