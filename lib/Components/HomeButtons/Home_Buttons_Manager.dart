@@ -3,6 +3,7 @@ import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import 'package:medical_reminder/App_State.dart';
 
 import 'package:medical_reminder/Components/HomeButtons/Home_Button.dart';
+import 'file:///C:/Users/alkhafml/AndroidStudioProjects/medical_reminder/lib/Services/Notifications/Notification_API.dart';
 import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
 
 class HomeButtonsManager extends StatefulWidget{
@@ -13,6 +14,7 @@ class HomeButtonsManager extends StatefulWidget{
 class _HomeButtonsManager extends State<HomeButtonsManager>{
   @override
   void initState() {
+    super.initState();
     FirebaseAuthorizer(context).checkIfUserIsLoggedIN();
   }
 

@@ -18,8 +18,7 @@ class Medication {
     this.medType,
     this.userId,
     this.times,
-    this.interval,
-    this.intervalMonthDay,
+    this.medId,
   });
 
   String medicationName;
@@ -30,8 +29,7 @@ class Medication {
   String medType;
   String userId;
   List<String> times;
-  String interval;
-  int intervalMonthDay;
+  String medId;
 
   factory Medication.fromJson(Map<String, dynamic> json) => Medication(
     medicationName: json["medicationName"],
@@ -42,8 +40,7 @@ class Medication {
     medType: json["medType"],
     userId: json["userID"],
     times: List<String>.from(json["times"].map((x) => x)),
-    interval: json["interval"],
-    intervalMonthDay: json["intervalMonthDay"],
+    medId: json["MedID"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -55,8 +52,7 @@ class Medication {
     "medType": medType,
     "userID": userId,
     "times": List<dynamic>.from(times.map((x) => x)),
-    "interval": interval,
-    "intervalMonthDay": intervalMonthDay,
+    "MedID": medId,
   };
 }
 

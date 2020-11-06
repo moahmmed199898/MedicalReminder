@@ -33,6 +33,7 @@ dependencies:
   rive: "^0.6.2"
   flutter_local_notifications: "3.0.1+2"
   http:
+  flutter_native_timezone: "1.0.4"
 
 
   # The following adds the Cupertino Icons font to your application.

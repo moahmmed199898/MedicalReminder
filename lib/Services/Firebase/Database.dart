@@ -44,6 +44,7 @@ class Database {
     var list = List<Medication>();
     for(var med in medications.docs) {
       var stracuredData = Medication.fromJson(med.data());
+      stracuredData.medId = med.id;
       list.add(stracuredData);
     }
     return list;

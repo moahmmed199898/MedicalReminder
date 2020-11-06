@@ -21,7 +21,6 @@ class MedicationCardMaker extends StatelessWidget {
     subText = _timeStringGenerator(medications);
     if(medications.medType == "T") icon = FontAwesomeIcons.tablets; else icon = FontAwesomeIcons.capsules;
     iconColor = Color.fromRGBO(medications.medColor.r, medications.medColor.g, medications.medColor.b, 1);
-
   }
 
   String _timeStringGenerator(Medication medication) {
