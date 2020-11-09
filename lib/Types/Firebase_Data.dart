@@ -3,6 +3,7 @@
 //     final medication = medicationFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:medical_reminder/Types/DayNTime.dart';
 
 List<Medication> medicationFromJson(String str) => List<Medication>.from(json.decode(str).map((x) => Medication.fromJson(x)));
 
@@ -30,6 +31,7 @@ class Medication {
   String userId;
   List<String> times;
   String medId;
+  DayNTime dateNTime;
 
   factory Medication.fromJson(Map<String, dynamic> json) => Medication(
     medicationName: json["medicationName"],

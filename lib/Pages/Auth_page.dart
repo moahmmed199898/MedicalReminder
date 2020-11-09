@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:medical_reminder/Constants.dart';
 import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
-
-import '../App_State.dart';
-import '../Services/Firebase/Firebase_Initializer.dart';
 
 
 

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
-import 'package:medical_reminder/App_State.dart';
-
 import 'package:medical_reminder/Components/HomeButtons/Home_Button.dart';
-import 'file:///C:/Users/alkhafml/AndroidStudioProjects/medical_reminder/lib/Services/Notifications/Notification_API.dart';
 import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
+import 'package:medical_reminder/Services/Notifications/Notification_API.dart';
+import 'package:medical_reminder/Services/Notifications/Notification_Setter.dart';
 
 class HomeButtonsManager extends StatefulWidget{
   @override
@@ -31,7 +30,7 @@ class _HomeButtonsManager extends State<HomeButtonsManager>{
               Row(
                 children: [
                   HomeButton("Current Medication", Color.fromRGBO(0, 154, 203, 1), FontAwesomeIcons.pills, ()=>Navigator.pushNamed(context, "/CurrentMed")),
-                  HomeButton("Alerts", Color.fromRGBO(190, 16, 16, 1), FontAwesomeIcons.exclamationCircle,()=>{}),
+                  HomeButton("Alerts", Color.fromRGBO(190, 16, 16, 1), FontAwesomeIcons.exclamationCircle,()=>{NotificationAPI.showNotificationWithDefaultSound("High blood pressure", "Don't forget to take your hydrochlorothiazide", "DtUl9NxVBcyd3uDvyXju")}),
                 ],
               ),
               Row(
