@@ -24,7 +24,9 @@ class InputBox extends StatelessWidget {
             hintText: question,
             border: OutlineInputBorder(),
           ),
-          onChanged: callback
+          onChanged: callback,
+        enableInteractiveSelection: true,
+
       ),
     );
   }

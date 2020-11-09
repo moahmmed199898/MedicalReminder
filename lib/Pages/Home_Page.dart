@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:medical_reminder/Components/HomeButtons/Home_Buttons_Manager.dart';
-import 'file:///C:/Users/alkhafml/AndroidStudioProjects/medical_reminder/lib/Services/Notifications/Notification_API.dart';
+import 'package:medical_reminder/Services/Notifications/Notification_API.dart';
+
+import '../App_State.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -24,7 +26,7 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    AppState.homeContext = context;
     return Scaffold(
         appBar: AppBar(
           title: Text("Medical Reminder"),

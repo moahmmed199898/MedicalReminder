@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
-import 'dart:async';
 
 class BackgroundAnimation extends StatefulWidget{
   final String animationPath;

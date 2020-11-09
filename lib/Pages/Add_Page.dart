@@ -1,10 +1,6 @@
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:async';
-
-
-import 'package:medical_reminder/Components/BackgroundSettings/Background_Animation.dart';
-import 'package:medical_reminder/Components/BackgroundSettings/Background_Setting_Setter.dart';
 import 'package:medical_reminder/Components/Color_Picker.dart';
 import 'package:medical_reminder/Components/DaysPicker/Days_Picker.dart';
 import 'package:medical_reminder/Components/Input_Box.dart';
@@ -13,7 +9,6 @@ import 'package:medical_reminder/Components/Tablet_Pill_Picker.dart';
 import 'package:medical_reminder/Services/Firebase/Database.dart';
 import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
 import 'package:medical_reminder/Types/BackgroundSettingEnum.dart';
-import 'package:medical_reminder/Services/Drugs_API.dart';
 
 class AddPage extends StatefulWidget {
   @override
