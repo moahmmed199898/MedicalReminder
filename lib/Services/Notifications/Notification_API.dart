@@ -26,6 +26,7 @@ class NotificationAPI {
     final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
+    time = tz.TZDateTime.now(tz.local).add(Duration(minutes: 1));
     await flutterLocalNotificationsPlugin.zonedSchedule(0, title, description, time, const NotificationDetails(
             android: AndroidNotificationDetails('0','your channel name', 'your channel description',)),
         androidAllowWhileIdle: true,

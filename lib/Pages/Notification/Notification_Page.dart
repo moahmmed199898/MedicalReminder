@@ -3,13 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medical_reminder/Components/HomeButtons/Home_Button.dart';
 import 'package:medical_reminder/Pages/Notification/Notification_Yes_Page.dart';
+import 'package:medical_reminder/Services/Firebase/Database.dart';
+import 'package:medical_reminder/Types/Firebase_Data.dart';
 
-class NotificationPage extends StatelessWidget {
+
+class NotificationPage extends StatefulWidget {
   String medID;
   NotificationPage(this.medID);
 
+  @override
+  _NotificationPage createState()=>_NotificationPage();
+}
+
+class _NotificationPage extends State<NotificationPage> {
+  Medication medInfo;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+  void init() async {
+    Medication _medInfo = await Database().getMedInfoFromID(widget.medID);
+    setState(() {
+      medInfo = _medInfo;
+    });
+  }
+
   void onYesHandler(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> NotificationYesPage(medID))).then((value) => Navigator.pop(context));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> NotificationYesPage(widget.medID))).then((value) => Navigator.pop(context));
   }
 
   void onNoHandler() {
@@ -35,7 +58,7 @@ class NotificationPage extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(top: 20),
                   child: Text(
-                    "High blood pressure medication reminder",
+                    "${medInfo.medNickName} reminder",
                     textAlign: TextAlign.center,
                     maxLines: 20,
                     style: TextStyle(

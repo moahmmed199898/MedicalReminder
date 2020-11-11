@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,7 +21,7 @@ class _NotificationYesPage extends State<NotificationYesPage> {
 
   void init() async {
     Database database = Database();
-    await database.addHistory(widget.medID, true, DateTime.now());
+    await database.addHistory(widget.medID,"MedName", true);
     setState(() {
       uploaded = true;
     });

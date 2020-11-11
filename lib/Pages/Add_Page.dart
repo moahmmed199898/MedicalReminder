@@ -46,12 +46,6 @@ class _AddPage extends State<AddPage> {
     _medDays = days;
   }
 
-  void backgroundAnimation() {
-    setState(() {
-      _currentBackground = BackgroundSetting.Morning2Evening;
-    });
-
-  }
   void onClickShowTimeHandler() {
     showTimePicker(context: context, initialTime: _time).then((value) => setState(()=>{
       _time = value
@@ -85,15 +79,12 @@ class _AddPage extends State<AddPage> {
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(58, 151, 187, 1),
         ),
-        body: Stack(
-            children: [
-              // BackgroundSettingSetter(_currentBackground),
-          SingleChildScrollView(
+        body: SingleChildScrollView(
               child:Container(
                       margin: EdgeInsets.only(top: 20, right: 10, left: 10, bottom: 20),
                       child: Column(
                         children: [
-                          MedicationCard(_medNickName, "Let's add your medication", _icon, _medColor, 0.2),
+                          MedicationCard(_medNickName, "Let's add your medication", _icon, _medColor, backgroundColor: Colors.red,),
                           InputBox("What is the Medication Name", onChangeMedNameHandler),
                           InputBox("What is the Medication NickName", onChangeMedNickNameHandler),
                           TabletPillPicker(_medTypeOnChangeHandler),
@@ -106,7 +97,6 @@ class _AddPage extends State<AddPage> {
                         ],
                       )
                   )
-              )],
           )
         );
   }

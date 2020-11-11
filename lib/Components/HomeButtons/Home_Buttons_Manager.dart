@@ -35,7 +35,7 @@ class _HomeButtonsManager extends State<HomeButtonsManager>{
               ),
               Row(
                 children: [
-                  HomeButton("History", Color.fromRGBO(65, 65, 65, 1), FontAwesomeIcons.calendarDay, ()=>{}),
+                  HomeButton("History", Color.fromRGBO(65, 65, 65, 1), FontAwesomeIcons.calendarDay, ()=>{Navigator.pushNamed(context, "/History")}),
                   HomeButton("Add", Color.fromRGBO(41, 135, 8, 1), FontAwesomeIcons.plus, ()=>Navigator.pushNamed(context, "/add")),
                 ],
               ),

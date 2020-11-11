@@ -6,34 +6,38 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-History historyFromJson(String str) => History.fromJson(json.decode(str));
+List<History> historyFromJson(String str) => List<History>.from(json.decode(str).map((x) => History.fromJson(x)));
 
-String historyToJson(History data) => json.encode(data.toJson());
+String historyToJson(List<History> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class History {
   History({
-    this.timeTaken,
-    this.taken,
     this.medId,
+    this.taken,
+    this.timeTaken,
     this.userId,
+    this.medName,
   });
 
-  Timestamp timeTaken;
-  bool taken;
   String medId;
+  bool taken;
+  Timestamp timeTaken;
   String userId;
+  String medName;
 
   factory History.fromJson(Map<String, dynamic> json) => History(
-    timeTaken: json["TimeTaken"],
-    taken: json["Taken"],
-    medId: json["MedID"],
+    medId: json["medID"],
+    taken: json["taken"],
+    timeTaken: json["timeTaken"],
     userId: json["userID"],
+    medName: json["medName"],
   );
 
   Map<String, dynamic> toJson() => {
-    "TimeTaken": timeTaken,
-    "Taken": taken,
-    "MedID": medId,
+    "medID": medId,
+    "taken": taken,
+    "timeTaken": timeTaken,
     "userID": userId,
+    "medName": medName,
   };
 }

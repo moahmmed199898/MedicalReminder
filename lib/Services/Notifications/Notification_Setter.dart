@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 class NotificationSetter {
   static Future syncDatabaseWithNotifications() async {
+    print("fhuirehuie");
     NotificationAPI.clearAllNotifications();
     List<Medication> medications = await Database().getCurrentMedication();
     tz.initializeTimeZones();

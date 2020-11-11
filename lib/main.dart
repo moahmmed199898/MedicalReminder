@@ -10,7 +10,7 @@ import 'Pages/Home_Page.dart';
 
 void main() => runApp(MaterialApp(
       theme: ThemeData.light(),
-      initialRoute: "/History",
+      initialRoute: "/",
       routes: {
         "/": (context) => HomePage(),
         "/CurrentMed" : (context) => CurrentHealthPage(),

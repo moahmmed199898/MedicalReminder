@@ -59,28 +59,35 @@ class Database {
   }
 
 
-  Future addHistory(String medID, bool taken, [DateTime timeTaken]) async {
+  Future addHistory(String medID,String medName, bool taken) async {
     await initFirebase();
     CollectionReference medications = firestore.collection("History");
     await medications.add(({
-      "MedID": medID,
-      "Taken": taken,
-      "TimeTaken": timeTaken,
-      "userID": FirebaseAuth.instance.currentUser.uid
+      "medID": medID,
+      "taken": taken,
+      "timeTaken": Timestamp.now(),
+      "userID": FirebaseAuth.instance.currentUser.uid,
+      "medName": medName,
     }));
   }
 
   Future<List<History>> getHistory() async {
     await initFirebase();
     var historyItems =  await firestore.collection("History").where("userID", isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
-    print("rehgfuierh guihergui");
-    print(historyItems.docs[0].data());
     List<History> list = List<History>();
     for(var historyItem in historyItems.docs) {
       var stracuredData = History.fromJson(historyItem.data());
       list.add(stracuredData);
     }
     return list;
+  }
+
+
+
+  Future<Medication> getMedInfoFromID(medID) async {
+    List<Medication> medications = await getCurrentMedication();
+    Medication med = medications.reduce((value, element) => value.medId = medID);
+    return med;
   }
 
 

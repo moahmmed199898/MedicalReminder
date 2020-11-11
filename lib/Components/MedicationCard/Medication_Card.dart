@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medical_reminder/Constants.dart';
 
@@ -7,11 +8,10 @@ class MedicationCard extends StatelessWidget {
   final String subText;
   final IconData icon;
   final Color iconColor;
-  final double transparency;
 
   //font sizes
-  final double _medNameFontSize = 35;
-  final double _subTextFontSize = 18;
+  double _medNameFontSize = 35;
+  double _subTextFontSize = 18;
 
   //background colors
   //dark background
@@ -22,15 +22,21 @@ class MedicationCard extends StatelessWidget {
   Color _backgroundColor;
 
 
-  MedicationCard(this.medName, this.subText, this.icon, this.iconColor, [this.transparency=1]) {
+  MedicationCard(this.medName, this.subText, this.icon, this.iconColor, {Color backgroundColor}) {
     //calculate the mean of the colors
-    double avgMean = (iconColor.blue + iconColor.red + iconColor.green)/3;
-    if(avgMean > 255/2) {
-      //light icon
-      _backgroundColor = _darkBackground.withOpacity(transparency);
+    if(backgroundColor !=null) {
+      _backgroundColor = backgroundColor;
+      return;
+    }
+
+    if(iconColor.computeLuminance() < 0.5) {
+      _backgroundColor = _darkBackground;
     } else {
-      //dark icon
-      _backgroundColor = _lightBackground.withOpacity(transparency);
+      _backgroundColor = _lightBackground;
+    }
+
+    if(medName.length > 13) {
+      this._medNameFontSize = _medNameFontSize - (medName.length - 13);
     }
   }
 
@@ -62,6 +68,7 @@ class MedicationCard extends StatelessWidget {
                           fontSize: _medNameFontSize,
                           fontWeight: FontWeight.bold,
                         ),
+                        maxLines: 1,
                       ),
                     ),
                     Text(
