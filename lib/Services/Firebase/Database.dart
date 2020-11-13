@@ -7,6 +7,7 @@ import 'package:medical_reminder/Services/Firebase/Firebase_Initializer.dart';
 import 'package:medical_reminder/Services/Medication_Dates.dart';
 import 'package:medical_reminder/Types/Firebase_Data.dart';
 import 'package:medical_reminder/Types/HistoryData.dart';
+import 'package:medical_reminder/Services/Notifications/Notification_Setter.dart';
 
 class Database {
   FirebaseFirestore firestore;
@@ -24,7 +25,7 @@ class Database {
     await initFirebase();
     CollectionReference medications = firestore.collection("Medications");
 
-    await medications.add(({
+    medications.add(({
       "medicationName": medName,
       "medColor": {
         "r": medColor.red,
@@ -37,12 +38,17 @@ class Database {
       "medType": medType == "Tablet" ? "T" : "P",
       "userID": FirebaseAuth.instance.currentUser.uid,
       "times": medDays.map((day) => "${DateTimeTranslator.shortDayToInt(day)} ${medTime.hour}:${medTime.minute}").toList(),
-    }));
+    })).then((value) async {
+      await NotificationSetter.syncDatabaseWithNotifications(forceUpdate: true);
+    });
+
   }
 
-  Future<List<Medication>> getCurrentMedication() async {
+
+
+  Future<List<Medication>> getCurrentMedication({bool forceUpdate = false}) async {
     print(DateTime.now().difference(AppState.lastCurrentMedicationUpdate));
-    if(DateTime.now().difference(AppState.lastCurrentMedicationUpdate) < Duration(minutes: 5) && AppState.currentMedications != null) return AppState.currentMedications;
+    if(!forceUpdate && DateTime.now().difference(AppState.lastCurrentMedicationUpdate) < Duration(minutes: 1) && AppState.currentMedications != null) return AppState.currentMedications;
     print("getting info from the server");
     firestore = FirebaseFirestore.instance;
     var medications =  await firestore.collection("Medications").where("userID", isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
@@ -73,11 +79,11 @@ class Database {
 
   Future<List<History>> getHistory() async {
     await initFirebase();
-    var historyItems =  await firestore.collection("History").where("userID", isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+    var historyItems =  await firestore.collection("History").where("userID", isEqualTo: FirebaseAuth.instance.currentUser.uid).orderBy("timeTaken", descending: true).get();
     List<History> list = List<History>();
     for(var historyItem in historyItems.docs) {
-      var stracuredData = History.fromJson(historyItem.data());
-      list.add(stracuredData);
+      var structuredData = History.fromJson(historyItem.data());
+      list.add(structuredData);
     }
     return list;
   }
@@ -86,8 +92,15 @@ class Database {
 
   Future<Medication> getMedInfoFromID(medID) async {
     List<Medication> medications = await getCurrentMedication();
-    Medication med = medications.reduce((value, element) => value.medId = medID);
+    Medication med = medications.singleWhere((element) => element.medId == medID);
     return med;
+  }
+
+  Future updateQuantity(String medID, int quantity) async {
+    await initFirebase();
+    await firestore.collection("Medications").doc("medID").update({
+      "amountLeft": quantity
+    });
   }
 
 

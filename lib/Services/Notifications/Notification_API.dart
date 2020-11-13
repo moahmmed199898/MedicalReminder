@@ -26,13 +26,28 @@ class NotificationAPI {
     final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
-    time = tz.TZDateTime.now(tz.local).add(Duration(minutes: 1));
-    await flutterLocalNotificationsPlugin.zonedSchedule(0, title, description, time, const NotificationDetails(
-            android: AndroidNotificationDetails('0','your channel name', 'your channel description',)),
+    // time = tz.TZDateTime.now(tz.local).add(Duration(seconds: 10));
+    // await flutterLocalNotificationsPlugin.zonedSchedule(0, title, description, time, const NotificationDetails(
+    //         android: AndroidNotificationDetails('0','your channel name', 'your channel description',)),
+    //     androidAllowWhileIdle: true,
+    //     uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    //     payload: payload
+    // );
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        title,
+        description,
+        time,
+        const NotificationDetails(
+            android: AndroidNotificationDetails('your channel id',
+                'your channel name', 'your channel description')),
         androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
         payload: payload
     );
+
   }
 
   static Future clearAllNotifications() async {

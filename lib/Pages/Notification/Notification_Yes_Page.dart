@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medical_reminder/App_State.dart';
 import 'package:medical_reminder/Services/Firebase/Database.dart';
+import 'package:medical_reminder/Types/Firebase_Data.dart';
 
 class NotificationYesPage extends StatefulWidget {
-  String medID;
-  NotificationYesPage(this.medID);
+  Medication medication;
+  NotificationYesPage(this.medication);
   _NotificationYesPage createState() => _NotificationYesPage();
 }
 
@@ -21,7 +22,8 @@ class _NotificationYesPage extends State<NotificationYesPage> {
 
   void init() async {
     Database database = Database();
-    await database.addHistory(widget.medID,"MedName", true);
+    await database.updateQuantity(widget.medication.medId, widget.medication.amountLeft-1);
+    await database.addHistory(widget.medication.medId,widget.medication.medNickName, true);
     setState(() {
       uploaded = true;
     });

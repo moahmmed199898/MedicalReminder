@@ -8,6 +8,8 @@ class CurrentHealthPage extends StatelessWidget {
         appBar: AppBar(
           title: Text("Current Medication"),
         ),
-        body: MedicationCardManager());
+        body: SingleChildScrollView(
+          child: MedicationCardManager(),
+        ));
   }
 }

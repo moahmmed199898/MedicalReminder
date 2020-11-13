@@ -27,7 +27,7 @@ class _HomePage extends State<HomePage> {
     var initializationSettings = InitializationSettings(iOS: initializationSettingsIOS, android: initializationSettingsAndroid);
     NotificationAPI.flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     NotificationAPI.flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: NotificationAPI.onSelectNotificationHandler);
-    await NotificationSetter.syncDatabaseWithNotifications();
+    // await NotificationSetter.syncDatabaseWithNotifications();
   }
 
   @override

@@ -5,10 +5,9 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationSetter {
-  static Future syncDatabaseWithNotifications() async {
-    print("fhuirehuie");
+  static Future syncDatabaseWithNotifications({bool forceUpdate = false}) async {
     NotificationAPI.clearAllNotifications();
-    List<Medication> medications = await Database().getCurrentMedication();
+    List<Medication> medications = await Database().getCurrentMedication(forceUpdate: forceUpdate);
     tz.initializeTimeZones();
     var now = tz.TZDateTime.now(tz.local);
 
@@ -19,6 +18,7 @@ class NotificationSetter {
       }
 
     }
+
 
   }
 }

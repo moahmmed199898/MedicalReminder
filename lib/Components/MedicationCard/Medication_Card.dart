@@ -36,18 +36,19 @@ class MedicationCard extends StatelessWidget {
     }
 
     if(medName.length > 13) {
-      this._medNameFontSize = _medNameFontSize - (medName.length - 13);
+      this._medNameFontSize = _medNameFontSize - (medName.length - 10);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.hardEdge,
       color: _backgroundColor,
-        child: Container(
-      color: _backgroundColor,
-      height: 100,
-            child: Row(
+      child: Container(
+        color: _backgroundColor,
+        height: 100,
+              child: Row(
               children: [
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),

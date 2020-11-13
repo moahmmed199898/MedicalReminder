@@ -17,10 +17,12 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPage extends State<NotificationPage> {
   Medication medInfo;
+  bool _dataLoading = true;
 
   @override
   void initState() {
     super.initState();
+    init();
   }
 
 
@@ -28,11 +30,12 @@ class _NotificationPage extends State<NotificationPage> {
     Medication _medInfo = await Database().getMedInfoFromID(widget.medID);
     setState(() {
       medInfo = _medInfo;
+      _dataLoading = false;
     });
   }
 
   void onYesHandler(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> NotificationYesPage(widget.medID))).then((value) => Navigator.pop(context));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> NotificationYesPage(medInfo))).then((value) => Navigator.pop(context));
   }
 
   void onNoHandler() {
@@ -41,11 +44,21 @@ class _NotificationPage extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    if(_dataLoading) {
+      return Scaffold(
+        drawer: Drawer(),
+        body: Container(
+          alignment: Alignment.center,
+          child: CircularProgressIndicator()
+        ),
+      );
+    }
+
     return Scaffold(
+      backgroundColor: Colors.white,
       drawer: Drawer(),
       body: Container(
-        //TODO: Fix the color ( top portion of the page does not match the bottom )
-        color: Colors.white70,
         margin: EdgeInsets.only(top: 120),
         child: Center(
           child: Column(
