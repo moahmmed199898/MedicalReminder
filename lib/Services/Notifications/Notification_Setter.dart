@@ -14,11 +14,17 @@ class NotificationSetter {
     for(var med in medications) {
       if(med.dateNTime.day >= now.weekday && med.dateNTime.hour >= now.hour && med.dateNTime.minutes >= now.minute) {
         var medTime = now.subtract(Duration(days: now.weekday, hours: now.hour, minutes: now.minute, seconds: now.second)).add(Duration(days: med.dateNTime.day, hours: med.dateNTime.hour, minutes: med.dateNTime.minutes));
-        NotificationAPI.scheduleNotification("Don't forget your ${med.medNickName}", "Just a friendly reminder to take ${med.medicationName}", medTime, med.medId);
+        await NotificationAPI.scheduleNotification("Don't forget your ${med.medNickName}", "Just a friendly reminder to take ${med.medicationName}", medTime, med.medId);
       }
 
     }
     print("Notification Synced");
+  }
 
+
+  static Future delay(Duration delayDuration, medID) async {
+    Medication med = await Database().getMedInfoFromID(medID);
+    var now = tz.TZDateTime.now(tz.timeZoneDatabase.get(await FlutterNativeTimezone.getLocalTimezone()));
+    await NotificationAPI.scheduleNotification("Don't forget your ${med.medNickName}", "Just a friendly reminder to take ${med.medicationName}", now.add(delayDuration), med.medId);
   }
 }
