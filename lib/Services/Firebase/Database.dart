@@ -98,7 +98,7 @@ class Database {
 
   Future updateQuantity(String medID, int quantity) async {
     await initFirebase();
-    await firestore.collection("Medications").doc("medID").update({
+    await firestore.collection("Medications").doc(medID).update({
       "amountLeft": quantity
     });
   }
