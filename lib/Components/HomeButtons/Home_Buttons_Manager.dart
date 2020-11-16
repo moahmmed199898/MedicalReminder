@@ -30,7 +30,7 @@ class _HomeButtonsManager extends State<HomeButtonsManager>{
               Row(
                 children: [
                   HomeButton("Current Medication", Color.fromRGBO(0, 154, 203, 1), FontAwesomeIcons.pills, ()=>Navigator.pushNamed(context, "/CurrentMed")),
-                  HomeButton("Alerts", Color.fromRGBO(190, 16, 16, 1), FontAwesomeIcons.exclamationCircle,()=>{NotificationAPI.showNotificationWithDefaultSound("High blood pressure", "Don't forget to take your hydrochlorothiazide", "DtUl9NxVBcyd3uDvyXju")}),
+                  HomeButton("Alerts", Color.fromRGBO(190, 16, 16, 1), FontAwesomeIcons.exclamationCircle,()=>Navigator.pushNamed(context, "/Alerts")),
                 ],
               ),
               Row(

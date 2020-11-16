@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_reminder/Services/Alerts_Services.dart';
 import 'package:medical_reminder/Services/Firebase/Database.dart';
 import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
 import 'package:medical_reminder/Types/Firebase_Data.dart';
@@ -17,9 +18,16 @@ class _MedicationCardManagerState extends State<MedicationCardManager> {
   @override
   void initState() {
     super.initState();
-    getData();
+    init();
+
   }
-  void getData() async {
+
+  Future init() async {
+    await getData();
+    await AlertServices.checkForLowMeds();
+  }
+
+  Future getData() async {
     await FirebaseAuthorizer(context).checkIfUserIsLoggedIN();
     List<Medication> data = await Database().getCurrentMedication();
     setState(() {

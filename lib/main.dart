@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_reminder/Pages/Add_Page.dart';
+import 'package:medical_reminder/Pages/Alerts_Page.dart';
 import 'package:medical_reminder/Pages/Auth_page.dart';
 import 'package:medical_reminder/Pages/Current_Health_Page.dart';
 import 'package:medical_reminder/Pages/Notification/Notification_Yes_Page.dart';
@@ -18,6 +19,7 @@ void main() => runApp(MaterialApp(
         "/add": (context) => AddPage(),
         "/Notification": (context) => NotificationPage(null),
         "/NotificationYes": (context) => NotificationYesPage(null),
-        "/History": (context) => HistoryPage()
+        "/History": (context) => HistoryPage(),
+        "/Alerts": (context) => AlertsPage()
       },
     ));

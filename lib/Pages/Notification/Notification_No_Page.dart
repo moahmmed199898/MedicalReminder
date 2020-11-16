@@ -64,8 +64,7 @@ class _NotificationNoPage extends State<NotificationNoPage> {
                   margin: EdgeInsets.only(top: 25),
                   child: Row(
                     children: [
-                      HomeButton(
-                          "Yes", Colors.green, FontAwesomeIcons.check, () => {onYesHandler(context)}),
+                      HomeButton("Yes", Colors.green, FontAwesomeIcons.check, () => {onYesHandler(context)}),
                       HomeButton("No", Colors.redAccent, FontAwesomeIcons.times, () => {onNoHandler(context)}),
                     ],
                   ),

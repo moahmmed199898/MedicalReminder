@@ -5,6 +5,7 @@ import 'package:medical_reminder/App_State.dart';
 import 'package:medical_reminder/Services/Date_Time_Translator.dart';
 import 'package:medical_reminder/Services/Firebase/Firebase_Initializer.dart';
 import 'package:medical_reminder/Services/Medication_Dates.dart';
+import 'package:medical_reminder/Types/Alerts_Data.dart';
 import 'package:medical_reminder/Types/Firebase_Data.dart';
 import 'package:medical_reminder/Types/HistoryData.dart';
 import 'package:medical_reminder/Services/Notifications/Notification_Setter.dart';
@@ -100,6 +101,32 @@ class Database {
     await initFirebase();
     await firestore.collection("Medications").doc(medID).update({
       "amountLeft": quantity
+    });
+  }
+
+  Future<List<Alert>> getAlerts() async {
+    await initFirebase();
+    var alertsItems =  await firestore.collection("Alerts").where("userID", isEqualTo: FirebaseAuth.instance.currentUser.uid).where("dismissed", isEqualTo: false).orderBy("created", descending: true).get();
+    List<Alert> alerts = List<Alert>();
+    for(var alertItem in alertsItems.docs) {
+      Alert structuredData = Alert.fromJson(alertItem.data());
+      structuredData.alertID = alertItem.id;
+      alerts.add(structuredData);
+    }
+    return alerts;
+  }
+
+  Future addAlert(Medication medication, bool taken, bool lowOnPills) async {
+    await initFirebase();
+    print("hello");
+    firestore.collection("Alerts").add({
+      "created": Timestamp.now(),
+      "dismissed": false,
+      "lowOnPills": lowOnPills,
+      "medID": medication.medId,
+      "medName": medication.medicationName,
+      "notTaken": !taken,
+      "userID": FirebaseAuth.instance.currentUser.uid
     });
   }
 
