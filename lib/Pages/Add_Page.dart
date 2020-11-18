@@ -6,6 +6,7 @@ import 'package:medical_reminder/Components/DaysPicker/Days_Picker.dart';
 import 'package:medical_reminder/Components/Input_Box.dart';
 import 'package:medical_reminder/Components/MedicationCard/Medication_Card.dart';
 import 'package:medical_reminder/Components/Tablet_Pill_Picker.dart';
+import 'package:medical_reminder/Constants.dart';
 import 'package:medical_reminder/Services/Firebase/Database.dart';
 import 'package:medical_reminder/Services/Firebase/Firebase_Authorizer.dart';
 import 'package:medical_reminder/Types/BackgroundSettingEnum.dart';
@@ -24,10 +25,19 @@ class _AddPage extends State<AddPage> {
   TimeOfDay _time = TimeOfDay(hour: 8, minute: 0);
   BackgroundSetting _currentBackground = BackgroundSetting.Evening2Morning;
   IconData _icon = FontAwesomeIcons.tablets;
-
+  Color _backgroundColor = Constants.offColor;
+  Color _fontColor = Colors.black;
   void _colorPickerOnChangeHandler(Color color) {
+    double luminance = color.computeLuminance();
     setState(() {
       _medColor = color;
+      if(luminance < 0.5) {
+        _backgroundColor = Constants.offColor;
+        _fontColor = Colors.white;
+      } else {
+        _backgroundColor = Constants.mainColor;
+        _fontColor = Colors.black;
+      }
     });
   }
 
@@ -84,7 +94,7 @@ class _AddPage extends State<AddPage> {
                       margin: EdgeInsets.only(top: 20, right: 10, left: 10, bottom: 20),
                       child: Column(
                         children: [
-                          MedicationCard(_medNickName, "Let's add your medication", _icon, _medColor, backgroundColor: Colors.red,),
+                          MedicationCard(_medNickName, "Let's add your medication", _icon, _medColor, backgroundColor: _backgroundColor,),
                           InputBox("What is the Medication Name", onChangeMedNameHandler),
                           InputBox("What is the Medication NickName", onChangeMedNickNameHandler),
                           TabletPillPicker(_medTypeOnChangeHandler),
@@ -92,8 +102,8 @@ class _AddPage extends State<AddPage> {
                           Text("What Days Do You Take The Medication?", style: TextStyle(color: _medColor, fontWeight: FontWeight.bold, fontSize: 20)),
                           DaysPicker(_onDayCheckedHandler),
                           Text("What Time Do You Take The Medication?", style: TextStyle(color: _medColor, fontWeight: FontWeight.bold, fontSize: 20)),
-                          FlatButton(onPressed:onClickShowTimeHandler,color: _medColor, child: Text("Click me to select time")),
-                          FlatButton(onPressed: onSubmitHandler, color: _medColor, child: Text("Submit")),
+                          FlatButton(onPressed:onClickShowTimeHandler,color: _medColor, child: Text("Click me to select time", style: TextStyle(color: _fontColor),)),
+                          FlatButton(onPressed: onSubmitHandler, color: _medColor, child: Text("Submit", style: TextStyle(color: _fontColor))),
                         ],
                       )
                   )

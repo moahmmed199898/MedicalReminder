@@ -4,6 +4,9 @@ import 'package:medical_reminder/Pages/Alerts_Page.dart';
 import 'package:medical_reminder/Pages/Auth_page.dart';
 import 'package:medical_reminder/Pages/Current_Health_Page.dart';
 import 'package:medical_reminder/Pages/Notification/Notification_Yes_Page.dart';
+import 'package:medical_reminder/Pages/Setting/Legal/Legal_Page.dart';
+import 'package:medical_reminder/Pages/Setting/Legal/Privacy_Policy.dart';
+import 'package:medical_reminder/Pages/Setting/Setting_Page.dart';
 import 'Pages/History_Page.dart';
 import 'package:medical_reminder/Pages/Notification/Notification_Page.dart';
 
@@ -20,6 +23,9 @@ void main() => runApp(MaterialApp(
         "/Notification": (context) => NotificationPage(null),
         "/NotificationYes": (context) => NotificationYesPage(null),
         "/History": (context) => HistoryPage(),
-        "/Alerts": (context) => AlertsPage()
+        "/Alerts": (context) => AlertsPage(),
+        "/Setting": (context) => SettingPage(),
+        "/Legal": (context) => LegalPage(),
+        "/PrivacyPolicy": (context) => PrivacyPolicyPage(),
       },
     ));

@@ -41,7 +41,7 @@ class _AlertsPage extends State<AlertsPage> {
           child: Column(
             children: alerts.map((e) => MedicationCard(
               e.medName,
-              e.lowOnPills ? "You need to refil this medication": "You have forgoten to take this medication",
+              e.lowOnPills ? "You need to refill this medication": "You have forgotten to take this medication",
               e.lowOnPills ? FontAwesomeIcons.prescriptionBottle : FontAwesomeIcons.prescription,
               Colors.white,
               backgroundColor: e.lowOnPills ? Colors.deepOrangeAccent : Colors.red,
