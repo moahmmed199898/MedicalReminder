@@ -75,7 +75,7 @@ class _AddPage extends State<AddPage> {
   void onSubmitHandler() async {
     await FirebaseAuthorizer(context).checkIfUserIsLoggedIN();
     Database database = Database();
-    await database.addMedication(_medicationName, _medNickName, _medColor, _medType, _medDays, _time).then((value) => print("added")).catchError((e)=> print(e.toString()));
+    await database.addMedication(_medicationName, _medNickName, _medColor, _medType, _medDays, _time).then((value) => Scaffold.of(context).showSnackBar(SnackBar(content: Text("Added")))).catchError((e)=> print(e.toString()));
   }
 
   @override

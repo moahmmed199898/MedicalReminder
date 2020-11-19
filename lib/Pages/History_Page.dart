@@ -48,7 +48,7 @@ class _HistoryPage extends State<HistoryPage> {
         body: SingleChildScrollView(
           child: Column(
           children: historyItems.map((e) => MedicationCard(e.medName,
-              "Good Job you took it on\n ${dateformatter.format(e.timeTaken.toDate())}at ${timeformatter.format(e.timeTaken.toDate())}",
+              e.taken ? "Good Job you took it on\n ${dateformatter.format(e.timeTaken.toDate())}at ${timeformatter.format(e.timeTaken.toDate())}": "You missed your medication on \n ${dateformatter.format(e.timeTaken.toDate())}at ${timeformatter.format(e.timeTaken.toDate())}",
               e.taken ? FontAwesomeIcons.check: FontAwesomeIcons.times,
               Colors.white,
               backgroundColor: e.taken ? Colors.green[800]: Colors.red,

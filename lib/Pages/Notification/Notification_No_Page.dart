@@ -38,6 +38,7 @@ class _NotificationNoPage extends State<NotificationNoPage> {
   }
 
   void onNoHandler(BuildContext context) {
+    // Database().addAlert(widget.medication, false, true,);
     Navigator.pop(context);
   }
 

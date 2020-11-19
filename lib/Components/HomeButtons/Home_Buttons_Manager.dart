@@ -41,7 +41,7 @@ class _HomeButtonsManager extends State<HomeButtonsManager>{
               ),
               Row(
                 children: [
-                  HomeButton("Doctor View", Color.fromRGBO(0, 154, 203, 1), FontAwesomeIcons.eye, ()=>{NotificationSetter.syncDatabaseWithNotifications()}),
+                  HomeButton("Remote View", Color.fromRGBO(0, 154, 203, 1), FontAwesomeIcons.eye, ()=>{}),
                   HomeButton("Setting", Color.fromRGBO(81, 81, 81, 1), FontAwesomeIcons.cog, ()=>{Navigator.pushNamed(context, "/Setting")})
                 ],
               )
